@@ -3,6 +3,8 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
+import java.lang.reflect.Array;
 import java.util.Scanner;
 
 public class DSVPP {
@@ -270,4 +272,87 @@ public class DSVPP {
         System.out.println("❌ Không tìm thấy sản phẩm có mã: " + masp);
     }
     
+    public void xoaSanPham(){
+        if (dsvpp.length == 0) {
+            System.out.println("❌ Danh sách trống, không thể xóa.");
+            return;
+        }
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Nhập sản phẩm cần xóa: ");
+        String spxoa=sc.nextLine();
+        for (int i = 0;i < n;i++){
+            if(dsvpp[i].getMaSP().equalsIgnoreCase(spxoa)){
+                for (int j = i;j < n-1;j++){
+                    dsvpp[j]=dsvpp[j+1];
+                }
+                dsvpp[n]=null;
+            }
+        }
+        dsvpp = Arrays.copyOf(dsvpp, dsvpp.length - 1);
+        n--;
+        ghiLaiToanBoFileSanPham();
+        System.out.println("Đã xóa thành công sản phẩm có mã: "+ spxoa);
+    }
+    public void suaSanPham(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Nhập sản phẩm cần sửa: ");
+        String spsua=sc.nextLine();
+        int t=-1;
+        for (int i = 0;i < n;i++){
+            if(dsvpp[i].getMaSP().equalsIgnoreCase(spsua)){
+                t=i;
+            }
+        }
+        if (t!=-1){
+        System.out.println("Chọn thông tin cần sửa");
+        System.out.println("1. Sửa Tên Sản Phẩm");
+        System.out.println("2. Sửa Đơn Giá");
+        System.out.println("3. Sửa Đơn Vị Tính");
+        System.out.print("Chọn: ");
+        int luachon = sc.nextInt();
+        sc.nextLine(); // tránh trôi dòng
+        switch(luachon){
+            case 1:
+            System.out.print("Nhập tên mới: ");
+            String newTen = sc.nextLine();
+            dsvpp[t].setTenSP(newTen);
+            break;
+
+            case 2:
+            System.out.print("Nhập đơn giá mới: ");
+            int newDonGia = sc.nextInt();
+            dsvpp[t].setDonGia(newDonGia);
+            break;
+
+            case 3:
+            System.out.print("Nhập đơn vị tính mới: ");
+            String newdvt = sc.nextLine();
+            dsvpp[t].setDonViTinh(newdvt);
+            break;
+
+        }
+        ghiLaiToanBoFileSanPham();
+        System.out.println("✅ Đã cập nhật thông tin sản phẩm.");
+        return;
+    }
+        if (t==-1){System.out.println("Không tìm thấy sản phẩm");}
+    }
+    public void timKiemSanPham(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Nhập sản phẩm cần tìm: ");
+        String spc=sc.nextLine();
+        for (int i = 0; i < n;i++){
+            if(dsvpp[i].getMaSP().equalsIgnoreCase(spc)||dsvpp[i].getTenSP().equalsIgnoreCase(spc)){
+                String format = "| %-8s | %-10s | %-20s | %-10s | %-13s | %-13s | %-20s | %-10s | %-10s |\n";
+            String line = "+----------+------------+----------------------+------------+---------------+---------------+----------------------+------------+------------+";
+
+            System.out.println(line);
+            System.out.printf(format, 
+                "Loại SP", "Mã SP", "Tên SP", "Số Lượng", "Đơn Giá", "Đơn Vị Tính", "Phân Loại Chức Năng", "Độ Tuổi", "Thể Loại");
+            System.out.println(line);
+            dsvpp[i].xuat(); 
+            
+            }
+        }
+    }
 }

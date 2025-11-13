@@ -194,7 +194,7 @@ public class DSNV {
                 System.out.println("Chọn thông tin cần sửa");
                 System.out.println("1. Sửa Họ");
                 System.out.println("2. Sửa Tên");
-                System.out.println("2. Sửa Lương Tháng");
+                System.out.println("3. Sửa Lương Tháng");
                 System.out.print("Chọn: ");
                 int luachon = sc.nextInt();
                 sc.nextLine(); // tránh trôi dòng
